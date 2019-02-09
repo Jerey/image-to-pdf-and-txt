@@ -3,10 +3,13 @@
 - [Image to text and PDF](#image-to-text-and-pdf)
   - [The idea](#the-idea)
   - [Installation](#installation)
+    - [Docker Hub](#docker-hub)
     - [Docker Build](#docker-build)
     - [Manually](#manually)
   - [Running the script](#running-the-script)
     - [Docker Run](#docker-run)
+      - [Image From Dockerhub](#image-from-dockerhub)
+      - [Image Built Locally](#image-built-locally)
     - [Python](#python)
   - [Functions](#functions)
     - [Folder option](#folder-option)
@@ -22,13 +25,23 @@ In order to reduce the amount of time spent organizing those documents, I bought
 
 ## Installation
 
-The tool is based on Python 3.
+The tool is based on Python 3. 
+
+With docker, it is rather simple to install the tool, but it is not required.
+
+### Docker Hub
+
+The easiest way to use this tool is to install it from the docker hub:
+
+```docker pull aaj07/image-to-pdf-and-txt```
+
+Have a look at the [docker hub](https://hub.docker.com/r/aaj07/image-to-pdf-and-txt) for the released versions and further information.
 
 ### Docker Build
 
 Go to the folder where the Dockerfile is located and execute following command:
 
-```docker build -t image-to-pdf-txt .```
+```docker build -t image-to-pdf-and-txt .```
 
 ### Manually
 
@@ -54,11 +67,17 @@ In general, the script does four steps:
 
 The script allows you to either define a folder, where the images are located in, or directly provide the path to the images.
 
-When using docker, it is advisible to use the default command, which uses the folder option.
+When using docker, it is advisible to use the default command, which uses the folder option. Depending on where you got the image from, the command can vary. Following the two examples matching the previously described ways of either retrieving or creating the image. Of course one can also create a own tag for the image.
 
-```docker run --rm -it -v $(pwd)/convert:/app/convert:ro -v $(pwd)/result:/app/result image-to-pdf-txt```
+#### Image From Dockerhub
 
-The two volumes/directories used in the docker script are:
+```docker run --rm -it -v $(pwd)/convert:/app/convert:ro -v $(pwd)/result:/app/result aaj07/image-to-pdf-and-txt```
+
+#### Image Built Locally
+
+```docker run --rm -it -v $(pwd)/convert:/app/convert:ro -v $(pwd)/result:/app/result image-to-pdf-and-txt```
+
+The two volumes/directories used in the ```docker run``` command are:
 
 - ```result```: This is where the text files and the PDFs are stored to.
 - ```convert```: This is the folder, where the images, which shall be converted, are located at.
