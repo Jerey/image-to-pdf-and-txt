@@ -111,7 +111,7 @@ Using the image flage, the order is not based on the name, but rather on the ord
 
 ## Drawback
 
-1. The image must have a good resolution and the text must be well readable, otherwise the output will not be all that great. In that case, it is possible that searching fails. But it is possible to add descriptive names to the number of the folder name through which manual searching can be improved.
+The image must have a good resolution and the text must be well readable, otherwise the output will not be all that great. In that case, it is possible that searching fails. But it is possible to add descriptive names to the number of the folder name through which manual searching can be improved.
 
 ## Credits
 
