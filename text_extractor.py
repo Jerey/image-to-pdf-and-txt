@@ -17,7 +17,6 @@ def extract_text_from_file(list_of_images, output_dir_and_name="default.txt"):
             outputstring_from_picture = unidecode(outputstring_from_picture)
             output_file.write(outputstring_from_picture)
 
-    #Splitext divides the name and the filetype.
     print("--> Wrote content to '" + output_dir_and_name + "'.")
 
 def main():
