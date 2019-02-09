@@ -1,5 +1,21 @@
 # Image to text and PDF
 
+- [Image to text and PDF](#image-to-text-and-pdf)
+  - [The idea](#the-idea)
+  - [Installation](#installation)
+    - [Docker Build](#docker-build)
+    - [Manually](#manually)
+  - [Running the script](#running-the-script)
+    - [Docker Run](#docker-run)
+    - [Python](#python)
+  - [Functions](#functions)
+    - [Folder option](#folder-option)
+    - [Image option](#image-option)
+  - [Drawback](#drawback)
+  - [Credits](#credits)
+
+## The idea
+
 I enjoy the thrive to the paperless world, as I find it much easier organizing digital documents. But since many documents are still required as a hardcopy, one is still forced to archive those.
 
 In order to reduce the amount of time spent organizing those documents, I bought a numbering stamp. This stamp automatically increases the number with each stamping. It is put on each document. Then I take a picture of all documents. After that, the images are organized in folders by the name of the number on the document. Then a python script is started with the path to the images. This script takes one to many images per document, tries to align them in a way that the text is "as horizontal as possible". This is done, since one easily is off by a few degrees when taking pictures with a camera or a phone. Then the slightly rotated images are stored to a pdf and used to extract text from them. This text then is stored to txt-files. The hardcopy documents are now simply archived in order of the number of the stamp. Whenever I now need a certain document, I can simply search for it on the computer and it will tell me, which number the document has.
