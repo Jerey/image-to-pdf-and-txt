@@ -1,0 +1,10 @@
+tmp/
+images/
+convert/
+private_pic/
+__pycache__/
+result/
+.pytest_cache/
+.vscode/.ropeproject/
+default.txt
+how_to_execute
