@@ -26,7 +26,7 @@ In order to reduce the amount of time spent organizing those documents, I bought
 
 Go to the folder where the Dockerfile is located and execute following command:
 
-```docker build -t image-to-pdf-txt```
+```docker build -t image-to-pdf-txt .```
 
 ### Manually
 
