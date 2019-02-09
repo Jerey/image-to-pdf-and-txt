@@ -22,6 +22,8 @@ In order to reduce the amount of time spent organizing those documents, I bought
 
 ## Installation
 
+The tool is based on Python 3.
+
 ### Docker Build
 
 Go to the folder where the Dockerfile is located and execute following command:
