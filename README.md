@@ -37,10 +37,11 @@ images
 |─002
   | skew_image.jpg
 ```
+
 Here the contents of the images:
 
-<img src="./documentation/images/001/image.jpg" width="400">
-<img src="./documentation/images/002/skew_image.jpg" width="400">
+<img src="./documentation/images/001/image.jpg" width="400"/>
+<img src="./documentation/images/002/skew_image.jpg" width="400"/>
 
 2. Open up your terminal and navigate to the parent folder of ```convert```.
 
@@ -48,8 +49,7 @@ Here the contents of the images:
 
 Following the output of the commands:
 
-![Sample Usage](./documentation/sample_usage.svg)
-<img src="./documentation/sample_usage.svg">
+![Sample Usage](/documentation/sample.gif)
 
 4. Have a look at the ```result``` directory to see, if everything went well enough.
 
