@@ -1,21 +1,20 @@
 # Image to text and PDF
 
-- [Image to text and PDF](#image-to-text-and-pdf)
-  - [The idea](#the-idea)
-  - [Installation](#installation)
-    - [Docker Hub](#docker-hub)
-    - [Docker Build](#docker-build)
-    - [Manually](#manually)
-  - [Running the script](#running-the-script)
-    - [Docker Run](#docker-run)
-      - [Image From Dockerhub](#image-from-dockerhub)
-      - [Image Built Locally](#image-built-locally)
-    - [Python](#python)
-  - [Functions](#functions)
-    - [Folder option](#folder-option)
-    - [Image option](#image-option)
-  - [Drawback](#drawback)
-  - [Credits](#credits)
+- [Image to text and PDF](#Image-to-text-and-PDF)
+  - [The idea](#The-idea)
+  - [Sample](#Sample)
+  - [Installation](#Installation)
+    - [Docker Hub](#Docker-Hub)
+    - [Manually](#Manually)
+  - [Running the script](#Running-the-script)
+    - [Docker Run](#Docker-Run)
+      - [Image From Dockerhub](#Image-From-Dockerhub)
+    - [Python](#Python)
+  - [Functions](#Functions)
+    - [Folder option](#Folder-option)
+    - [Image option](#Image-option)
+  - [Drawback](#Drawback)
+  - [Credits](#Credits)
 
 ## The idea
 
@@ -23,9 +22,40 @@ I enjoy the thrive to the paperless world, as I find it much easier organizing d
 
 In order to reduce the amount of time spent organizing those documents, I bought a numbering stamp. This stamp automatically increases the number with each stamping. It is put on each document. Then I take a picture of all documents. After that, the images are organized in folders by the name of the number on the document. Then a python script is started with the path to the images. This script takes one to many images per document, tries to align them in a way that the text is "as horizontal as possible". This is done, since one easily is off by a few degrees when taking pictures with a camera or a phone. Then the slightly rotated images are stored to a pdf and used to extract text from them. This text then is stored to txt-files. The hardcopy documents are now simply archived in order of the number of the stamp. Whenever I now need a certain document, I can simply search for it on the computer and it will tell me, which number the document has.
 
+## Sample
+
+Following a sample usage of this tool (assuming the [installation](#installation) has been done based on docker hub).
+
+1. Take pictures of your hardcopy documents and put them into a proper directory structure with good names. The folder names are the names of the output (following ```001``` and ```002```).
+
+```vim
+images
+|
+|─001
+| | image.jpg
+|
+|─002
+  | skew_image.jpg
+```
+Here the contents of the images:
+
+<img src="./documentation/images/001/image.jpg" width="400">
+<img src="./documentation/images/002/skew_image.jpg" width="400">
+
+2. Open up your terminal and navigate to the parent folder of ```convert```.
+
+3. Execute the [command](#Image-From-Dockerhub) with your input parameters. In this case: ```docker run --rm -it -v $(pwd)/images:/app/convert:ro -v $(pwd)/result:/app/result aaj07/image-to-pdf-and-txt```
+
+Following the output of the commands:
+
+![Sample Usage](./documentation/sample_usage.svg)
+<img src="./documentation/sample_usage.svg">
+
+4. Have a look at the ```result``` directory to see, if everything went well enough.
+
 ## Installation
 
-The tool is based on Python 3. 
+The tool is based on Python 3.
 
 With docker, it is rather simple to install the tool, but it is not required.
 
@@ -58,6 +88,7 @@ The ```tesseract-ocr-deu``` package is required to have German language support.
 Again, it is possible to run the script manually or via Docker.
 
 In general, the script does four steps:
+
 1. Collect a list of pdfs to be produced.
 2. Rotate the image. Often the text is a bit skew, if one takes the images by hand, through which the OCR result tends to be worse.
 3. Extract the text and store it to a text file.
@@ -152,4 +183,4 @@ The image must have a good resolution and the text must be well readable, otherw
 
 ## Credits
 
-Since I was completely new to Python, being a C++ developer, and further being new to OCR, I had search my way through the internet to help me create this tool. The [Py Image Search-Page](https://www.pyimagesearch.com/) helped me a lot, specifically the blog entry about [the text skew correction](https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/). The text skew pretty was pretty much taken from that entry, with some minor adaptions.
+Since I was completely new to Python and further being new to OCR, I had to find my way through the internet to create this tool. The [Py Image Search-Page](https://www.pyimagesearch.com/) helped me a lot, specially the blog entry about [the text skew correction](https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/). The text skew correction was pretty much taken from that entry, with some minor adaptions.
