@@ -6,18 +6,22 @@ from unidecode import unidecode
 
 def extract_text_from_file(list_of_images, output_dir_and_name="default.txt"):
     tool = pyocr.get_available_tools()[0]
+    outputstring_from_picture = ""
 
-    with open(output_dir_and_name, "w") as output_file:
-        for path_to_image in list_of_images:
-            img = Image.open(path_to_image)
-            #Make the image in Black and White
-            img = img.convert('L')
-            print("-> Reading content from '{}'.".format(path_to_image))
-            outputstring_from_picture = tool.image_to_string(img, lang='deu')
-            outputstring_from_picture = unidecode(outputstring_from_picture)
+    for path_to_image in list_of_images:
+        img = Image.open(path_to_image)
+        # Make the image black and white
+        img = img.convert('L')
+        print("-> Reading content from '{}'.".format(path_to_image))
+        outputstring_from_picture += unidecode(tool.image_to_string(img, lang='deu'))
+
+    if not outputstring_from_picture:
+        print("--> No content written to '" + output_dir_and_name + "' as nothing could be read.")
+    else:
+        with open(output_dir_and_name, "w") as output_file:
             output_file.write(outputstring_from_picture)
+            print("--> Wrote content to '" + output_dir_and_name + "'.")
 
-    print("--> Wrote content to '" + output_dir_and_name + "'.")
 
 def main():
     for image in ARGS["images"]:
