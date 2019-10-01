@@ -1,6 +1,6 @@
-numpy==1.15.0
-img2pdf==0.3.1
-pyocr==0.5.3
-opencv_python==3.4.2.17
-Pillow==5.2.0
-Unidecode==1.0.22
+numpy==1.17.2
+img2pdf==0.3.3
+pyocr==0.7.2
+opencv_python==4.1.1.26
+Pillow==6.1.0
+Unidecode==1.1.1
