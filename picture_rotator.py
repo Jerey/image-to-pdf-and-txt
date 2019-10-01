@@ -20,7 +20,7 @@ def rotate_image_based_on_text(path_to_image, debug=False):
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (9, 1))
     connected = cv2.morphologyEx(black_white, cv2.MORPH_CLOSE, kernel)
     # using RETR_EXTERNAL instead of RETR_CCOMP
-    _, contours, _ = cv2.findContours(connected.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    contours, _ = cv2.findContours(connected.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     mask = np.zeros(black_white.shape, dtype=np.uint8)
 
