@@ -2,5 +2,5 @@ numpy==1.17.2
 img2pdf==0.3.3
 pyocr==0.7.2
 opencv_python==4.1.1.26
-Pillow==6.2.0
+Pillow==6.2.2
 Unidecode==1.1.1
