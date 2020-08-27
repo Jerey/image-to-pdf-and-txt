@@ -45,7 +45,7 @@ Here the contents of the images:
 
 2. Open up your terminal and navigate to the parent folder of ```convert```.
 
-3. Execute the [command](#Image-From-Dockerhub) with your input parameters. In this case: ```docker run --rm -it -v $(pwd)/images:/app/convert:ro -v $(pwd)/result:/app/result aaj07/image-to-pdf-and-txt```
+3. Execute the [command](#Image-From-Dockerhub) with your input parameters. In this case: ```docker run --rm -it -v $(pwd)/images:/app/convert:ro -v $(pwd)/result:/app/result jerey/image-to-pdf-and-txt```
 
 Following the output of the commands:
 
@@ -63,9 +63,9 @@ With docker, it is rather simple to install the tool, but it is not required.
 
 The easiest way to use this tool is to install it from the docker hub:
 
-```docker pull aaj07/image-to-pdf-and-txt```
+```docker pull jerey/image-to-pdf-and-txt```
 
-Have a look at the [docker hub](https://hub.docker.com/r/aaj07/image-to-pdf-and-txt) for the released versions and further information.
+Have a look at the [docker hub](https://hub.docker.com/r/jerey/image-to-pdf-and-txt) for the released versions and further information.
 
 ### Docker Build
 
@@ -102,7 +102,7 @@ When using docker, it is advisible to use the default command, which uses the fo
 
 #### Image From Dockerhub
 
-```docker run --rm -it -v $(pwd)/convert:/app/convert:ro -v $(pwd)/result:/app/result aaj07/image-to-pdf-and-txt```
+```docker run --rm -it -v $(pwd)/convert:/app/convert:ro -v $(pwd)/result:/app/result jerey/image-to-pdf-and-txt```
 
 #### Image Built Locally
 
