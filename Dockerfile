@@ -9,6 +9,7 @@ tesseract-ocr \
 tesseract-ocr-deu \
 libsm6 \
 libxext6 \
+libglu1 \
 && rm -rf /var/lib/apt/lists/*
 
  #create the folder app
