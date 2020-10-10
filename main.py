@@ -18,12 +18,12 @@ ARGS = vars(AP.parse_args())
 
 def main():
     list_of_pdfs = []
-    if ARGS["folder"] is not None:
+    if ARGS["folder"] != None:
         for path, _, files in os.walk(ARGS["folder"]):
             currentpdf = []
             for name in files:
                 currentpdf.append(os.path.join(path, name))
-            if len(currentpdf) is not 0:
+            if len(currentpdf) != 0:
                 currentpdf.sort()
                 list_of_pdfs.append(currentpdf)
     else:
@@ -32,7 +32,7 @@ def main():
     for pdf in list_of_pdfs:
         print("---------------------------")
         filename = ""
-        if ARGS["images"] is not None:
+        if ARGS["images"] != None:
             pdf = pdf.split(',')
             filename = pdf[0]
         else:

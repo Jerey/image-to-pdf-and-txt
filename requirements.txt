@@ -1,6 +1,6 @@
-numpy>=1.17
-img2pdf==0.3.3
+numpy>=1.18
+img2pdf>=0.4.0
 pyocr==0.7.2
-opencv_python>=4.1
-Pillow>=7.1.0
+opencv_python>=4.4.0
+Pillow>=7.2.0
 Unidecode==1.1.1
