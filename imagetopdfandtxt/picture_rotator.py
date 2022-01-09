@@ -4,7 +4,7 @@ import warnings
 from shutil import copyfile
 import cv2
 import numpy as np
-import helper_utils
+import imagetopdfandtxt.helper_utils as helper_utils
 
 # see https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
 def rotate_image_based_on_text(path_to_image, debug=False):

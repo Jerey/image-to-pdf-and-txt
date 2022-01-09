@@ -13,7 +13,7 @@ def extract_text_from_file(list_of_images, output_dir_and_name="default.txt"):
         # Make the image black and white
         img = img.convert('L')
         print("-> Reading content from '{}'.".format(path_to_image))
-        outputstring_from_picture += unidecode(tool.image_to_string(img, lang='deu'))
+        outputstring_from_picture += unidecode(tool.image_to_string(img))
 
     if not outputstring_from_picture:
         print("--> No content written to '" + output_dir_and_name + "' as nothing could be read.")
