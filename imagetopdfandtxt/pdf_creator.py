@@ -6,12 +6,12 @@ import img2pdf
 def create_pdf_from_images(list_of_images, output_dir_and_name="default.pdf"):
     with open(output_dir_and_name, "wb") as output_file:
         output_file.write(img2pdf.convert(list_of_images))
-    print("--> Created '{}' from '{}'.".format(output_dir_and_name, list_of_images))
+    print(f"--> Created '{output_dir_and_name}' from '{list_of_images}'.")
 
 def main():
     for image in ARGS["images"]:
         pages = image.split(',')
-        print("-> Trying to create a pdf from '{}'.".format(pages))
+        print(f"-> Trying to create a pdf from '{pages}'.")
         create_pdf_from_images(pages)
 
 if __name__ == '__main__':
