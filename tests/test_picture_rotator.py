@@ -1,7 +1,7 @@
 import unittest
 from imagetopdfandtxt import picture_rotator
 
-class picture_rotator_test(unittest.TestCase):
+class test_picture_rotator(unittest.TestCase):
 
     def test_get_new_name(self):
         filename = "my_image"
