@@ -1,0 +1,16 @@
+name: CI to docker hub
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+      - name: Build Container
+        run: docker build -t image-to-pdf-and-txt .
+      - name: Run tests in container
+        run: docker run --rm image-to-pdf-and-txt:latest python3 -m unittest

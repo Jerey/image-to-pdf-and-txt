@@ -4,10 +4,9 @@ import warnings
 from shutil import copyfile
 import cv2
 import numpy as np
-import helper_utils
+import imagetopdfandtxt.helper_utils as helper_utils
 
-# see https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
-def rotate_image_based_on_text(path_to_image, debug=False):
+def get_rotation_angle(path_to_image, debug=False):
     large = cv2.imread(path_to_image)
     rgb = cv2.pyrDown(large)
     small = cv2.cvtColor(rgb, cv2.COLOR_BGR2GRAY)
@@ -56,7 +55,16 @@ def rotate_image_based_on_text(path_to_image, debug=False):
         angle = sum(all_angles)/len(all_angles)
     else:
         angle = 0
-        # rotate the image to deskew it
+    return angle
+
+
+# see https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
+def rotate_image_based_on_text(path_to_image, debug=False):
+    large = cv2.imread(path_to_image)
+    rgb = cv2.pyrDown(large)
+    angle = get_rotation_angle(path_to_image, debug)
+
+    # rotate the image to deskew it
     (height_bounding_rect, width_bounding_rect) = rgb.shape[:2]
     center = (width_bounding_rect // 2, height_bounding_rect // 2)
     M = cv2.getRotationMatrix2D(center, -angle, 1.0)
@@ -65,7 +73,7 @@ def rotate_image_based_on_text(path_to_image, debug=False):
 
     # draw the correction angle on the image so we can validate it
     # cv2.putText(rotated, "Angle: {:.2f} degrees".format(angle), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-    print("--> Rotating picture '{}' {:.2f} degrees".format(path_to_image, angle))
+    print(f"--> Rotating picture '{path_to_image}' {angle:.2f} degrees")
 
     #The output directory of the copy of the image and the text.
     output_directory = "tmp/"
@@ -85,17 +93,17 @@ def rotate_image_based_on_text(path_to_image, debug=False):
 def get_new_name(path_to_image, identifier):
     input_file_name = os.path.basename(path_to_image)
     name, ext = os.path.splitext(input_file_name)
-    output_file_name = "{name}_{id}{ext}".format(name=name, id=identifier, ext=ext)
+    output_file_name = f"{name}_{identifier}{ext}"
     return output_file_name
 
 
 def main():
     for image in ARGS["images"]:
-        print("-> Trying to rotate '" + image + "' based on the text.")
+        print(f"-> Trying to rotate '{image}' based on the text.")
         if os.path.isfile(image):
             rotate_image_based_on_text(image, ARGS["debug"])
         else:
-            warnings.warn("Not a file: '" + image + "'! Doing nothing with it.. ")
+            warnings.warn(f"Not a file: '{image}'! Doing nothing with it.. ")
 
 if __name__ == '__main__':
     AP = argparse.ArgumentParser(description="""Takes one to many images and tries to rotate the

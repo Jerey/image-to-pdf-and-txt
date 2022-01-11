@@ -1,10 +1,10 @@
 import argparse
 import os.path
 import warnings
-import text_extractor
-import picture_rotator
-import pdf_creator
-import helper_utils
+import imagetopdfandtxt.text_extractor as text_extractor
+import imagetopdfandtxt.picture_rotator as picture_rotator
+import imagetopdfandtxt.pdf_creator as pdf_creator
+import imagetopdfandtxt.helper_utils as helper_utils
 
 AP = argparse.ArgumentParser(description="""Takes one to many images, tries to extract text from the
                             images and stores it in a folder including the input image.""")
@@ -39,11 +39,11 @@ def main():
             filename = os.path.basename(os.path.dirname(pdf[0]))
 
         for idx, page in enumerate(pdf):
-            print("Working on '{}'. That is page {}/{}.".format(page, idx+1, len(pdf)))
+            print(f"Working on '{page}'. That is page {idx+1}/{len(pdf)}.")
             if os.path.isfile(page):
                 pdf[idx] = picture_rotator.rotate_image_based_on_text(page)
             else:
-                warnings.warn("Not a file: '" + page + "'! Doing nothing with it.. ")
+                warnings.warn(f"Not a file: '{page}'! Doing nothing with it.. ")
 
         output_directory = "result/"
         if not os.path.exists(output_directory):

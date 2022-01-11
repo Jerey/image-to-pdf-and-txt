@@ -16,10 +16,11 @@ libglu1 \
 ADD requirements.txt /tmp/
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 WORKDIR /app
-ADD *.py /app/ 
+ADD imagetopdfandtxt /app/imagetopdfandtxt
+ADD tests /app/tests/
 
 #Command used, despite specified command.
 #ENTRYPOINT python3 run.py
 
 #Use this as default command, if no command has been specified in docker run ...
-CMD python3 main.py -f convert
+CMD python3 -m imagetopdfandtxt.main -f convert
