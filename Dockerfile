@@ -23,4 +23,4 @@ ADD tests /app/tests/
 #ENTRYPOINT python3 run.py
 
 #Use this as default command, if no command has been specified in docker run ...
-CMD python3 -m imagetopdfandtxt.main.py -f convert
+CMD python3 -m imagetopdfandtxt.main -f convert
