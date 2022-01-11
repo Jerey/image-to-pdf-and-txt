@@ -6,8 +6,7 @@ import cv2
 import numpy as np
 import imagetopdfandtxt.helper_utils as helper_utils
 
-# see https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
-def rotate_image_based_on_text(path_to_image, debug=False):
+def get_rotation_angle(path_to_image, debug=False):
     large = cv2.imread(path_to_image)
     rgb = cv2.pyrDown(large)
     small = cv2.cvtColor(rgb, cv2.COLOR_BGR2GRAY)
@@ -56,7 +55,16 @@ def rotate_image_based_on_text(path_to_image, debug=False):
         angle = sum(all_angles)/len(all_angles)
     else:
         angle = 0
-        # rotate the image to deskew it
+    return angle
+
+
+# see https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
+def rotate_image_based_on_text(path_to_image, debug=False):
+    large = cv2.imread(path_to_image)
+    rgb = cv2.pyrDown(large)
+    angle = get_rotation_angle(path_to_image, debug)
+
+    # rotate the image to deskew it
     (height_bounding_rect, width_bounding_rect) = rgb.shape[:2]
     center = (width_bounding_rect // 2, height_bounding_rect // 2)
     M = cv2.getRotationMatrix2D(center, -angle, 1.0)
