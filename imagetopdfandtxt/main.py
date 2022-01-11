@@ -1,10 +1,10 @@
 import argparse
 import os.path
 import warnings
-import text_extractor
-import picture_rotator
-import pdf_creator
-import helper_utils
+import imagetopdfandtxt.text_extractor as text_extractor
+import imagetopdfandtxt.picture_rotator as picture_rotator
+import imagetopdfandtxt.pdf_creator as pdf_creator
+import imagetopdfandtxt.helper_utils as helper_utils
 
 AP = argparse.ArgumentParser(description="""Takes one to many images, tries to extract text from the
                             images and stores it in a folder including the input image.""")
