@@ -1,20 +1,22 @@
 # Image to text and PDF
 
-- [Image to text and PDF](#Image-to-text-and-PDF)
-  - [The idea](#The-idea)
-  - [Sample](#Sample)
-  - [Installation](#Installation)
-    - [Docker Hub](#Docker-Hub)
-    - [Manually](#Manually)
-  - [Running the script](#Running-the-script)
-    - [Docker Run](#Docker-Run)
-      - [Image From Dockerhub](#Image-From-Dockerhub)
-    - [Python](#Python)
-  - [Functions](#Functions)
-    - [Folder option](#Folder-option)
-    - [Image option](#Image-option)
-  - [Drawback](#Drawback)
-  - [Credits](#Credits)
+- [Image to text and PDF](#image-to-text-and-pdf)
+  - [The idea](#the-idea)
+  - [Sample](#sample)
+  - [Installation](#installation)
+    - [Docker Hub](#docker-hub)
+    - [Docker Build](#docker-build)
+    - [Manually](#manually)
+  - [Running the script](#running-the-script)
+    - [Docker Run](#docker-run)
+      - [Image From Dockerhub](#image-from-dockerhub)
+      - [Image Built Locally](#image-built-locally)
+    - [Python](#python)
+  - [Functions](#functions)
+    - [Folder option](#folder-option)
+    - [Image option](#image-option)
+  - [Drawback](#drawback)
+  - [Credits](#credits)
 
 ## The idea
 
@@ -92,7 +94,9 @@ In general, the script does four steps:
 1. Collect a list of pdfs to be produced.
 2. Rotate the image. Often the text is a bit skew, if one takes the images by hand, through which the OCR result tends to be worse.
 3. Extract the text and store it to a text file.
-4. Takt eh rotated images and store it to a pdf.
+4. Take the rotated images and store them to a pdf.
+
+> The image skew correction currently only allows skew values of ±5&deg;. This can be adapted by changing the `limit` of `get_rotation_angle`. But by increasing this value, the calculation time increases.
 
 ### Docker Run
 
@@ -175,7 +179,7 @@ result
 | Img4.pdf -> Contains the images Img4.jpg, Img5.jpg and Img6.jpg.
 ```
 
-Using the image flage, the order is not based on the name, but rather on the order provided to the script.
+Using the image flag, the order is not based on the name, but rather on the order provided to the script.
 
 ## Drawback
 
@@ -183,4 +187,5 @@ The image must have a good resolution and the text must be well readable, otherw
 
 ## Credits
 
-Since I was completely new to Python and further being new to OCR, I had to find my way through the internet to create this tool. The [Py Image Search-Page](https://www.pyimagesearch.com/) helped me a lot, specially the blog entry about [the text skew correction](https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/). The text skew correction was pretty much taken from that entry, with some minor adaptions.
+At the beginning of this project, the text deskew was based on [the skew correction](https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/) by [Py Image Search-Page](https://www.pyimagesearch.com/).
+Since opencv changed its behavior with the minAreaRect method, a new skew correction was introduced to determine the skew correction angle. This is based on [this](https://stackoverflow.com/a/57965160) stackoverflow answer.
