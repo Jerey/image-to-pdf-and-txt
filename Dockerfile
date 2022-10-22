@@ -1,4 +1,4 @@
-FROM ubuntu 
+FROM ubuntu:22.04 
 
 #no-cache since the cache would make the image bigger than needed.
 RUN apt-get update && apt-get install --no-install-recommends -y \ 
@@ -10,6 +10,7 @@ tesseract-ocr-deu \
 libsm6 \
 libxext6 \
 libglu1 \
+ffmpeg \
 && rm -rf /var/lib/apt/lists/*
 
  #create the folder app
