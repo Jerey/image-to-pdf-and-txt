@@ -8,6 +8,8 @@ import imagetopdfandtxt.helper_utils as helper_utils
 import scipy.ndimage
 
 # see https://stackoverflow.com/a/57965160
+# Delta defines the degree steps to be checked.
+# Limit defines the maximum skew.
 def get_rotation_angle(image, delta=1, limit=5):
     def determine_score(arr, angle):
         data = scipy.ndimage.rotate(arr, angle, reshape=False, order=0)
@@ -33,8 +35,6 @@ def get_rotation_angle(image, delta=1, limit=5):
 def rotate_image_based_on_text(path_to_image, debug=False):
     image = cv2.imread(path_to_image)
     angle = get_rotation_angle(image)
-
-
 
     rgb = cv2.pyrDown(image)
 
