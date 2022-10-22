@@ -188,4 +188,4 @@ The image must have a good resolution and the text must be well readable, otherw
 ## Credits
 
 At the beginning of this project, the text deskew was based on [the skew correction](https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/) by [Py Image Search-Page](https://www.pyimagesearch.com/).
-Since opencv changed its behavior with the minAreaRect method, a new skew correction was introduced to determine the skew correction angle. This is based on [this](https://stackoverflow.com/a/57965160) stackoverflow answer.
+Since opencv changed its behavior with the `minAreaRect` method, a new skew correction was introduced to determine the skew correction angle. This is based on [this](https://stackoverflow.com/a/57965160) stackoverflow answer.
