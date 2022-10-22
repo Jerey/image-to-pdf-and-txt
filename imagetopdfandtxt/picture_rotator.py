@@ -5,64 +5,38 @@ from shutil import copyfile
 import cv2
 import numpy as np
 import imagetopdfandtxt.helper_utils as helper_utils
+import scipy.ndimage
 
-def get_rotation_angle(path_to_image, debug=False):
-    large = cv2.imread(path_to_image)
-    rgb = cv2.pyrDown(large)
-    small = cv2.cvtColor(rgb, cv2.COLOR_BGR2GRAY)
+# see https://stackoverflow.com/a/57965160
+def get_rotation_angle(image, delta=1, limit=5):
+    def determine_score(arr, angle):
+        data = scipy.ndimage.rotate(arr, angle, reshape=False, order=0)
+        histogram = np.sum(data, axis=1, dtype=float)
+        score = np.sum((histogram[1:] - histogram[:-1]) ** 2, dtype=float)
+        return histogram, score
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
-    grad = cv2.morphologyEx(small, cv2.MORPH_GRADIENT, kernel)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1] 
 
-    _, black_white = cv2.threshold(grad, 0.0, 255.0, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    scores = []
+    angles = np.arange(-limit, limit + delta, delta)
+    for angle in angles:
+        histogram, score = determine_score(thresh, angle)
+        scores.append(score)
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (9, 1))
-    connected = cv2.morphologyEx(black_white, cv2.MORPH_CLOSE, kernel)
-    # using RETR_EXTERNAL instead of RETR_CCOMP
-    contours, _ = cv2.findContours(connected.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    best_angle = angles[scores.index(max(scores))]
 
-    mask = np.zeros(black_white.shape, dtype=np.uint8)
-
-    all_angles = []
-    for idx in range(len(contours)):
-        x_bounding_rect, y_bounding_rect, width_bounding_rect, height_bounding_rect = cv2.boundingRect(contours[idx])
-        mask[y_bounding_rect:y_bounding_rect+height_bounding_rect, x_bounding_rect:x_bounding_rect+width_bounding_rect] = 0
-        cv2.drawContours(mask, contours, idx, (255, 255, 255), -1)
-        r = float(cv2.countNonZero(mask[y_bounding_rect : y_bounding_rect + height_bounding_rect, x_bounding_rect : x_bounding_rect + width_bounding_rect])) / (width_bounding_rect * height_bounding_rect)
-
-        if r > 0.45 and width_bounding_rect > 8 and height_bounding_rect > 8:
-            box = cv2.minAreaRect(contours[idx])
-            angle = box[-1]
-
-            # the `cv2.minAreaRect` function returns values in the
-            # range [-90, 0); as the rectangle rotates clockwise the
-            # returned angle trends to 0 -- in this special case we
-            # need to add 90 degrees to the angle
-            if angle < -45:
-                angle = -(90 + angle)
-
-            # otherwise, just take the inverse of the angle to make
-            # it positive
-            else:
-                angle = -angle
-
-            all_angles.append(angle)
-            if debug:
-                cv2.rectangle(rgb, (x_bounding_rect, y_bounding_rect), (x_bounding_rect+width_bounding_rect-1, y_bounding_rect+height_bounding_rect-1), (0, 255, 0), 2)
-                cv2.drawContours(rgb, [np.int0(cv2.boxPoints(box))], -1, (255,255,255),3)
-
-    if len(all_angles) > 0:
-        angle = sum(all_angles)/len(all_angles)
-    else:
-        angle = 0
-    return angle
+    return -best_angle
 
 
 # see https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
 def rotate_image_based_on_text(path_to_image, debug=False):
-    large = cv2.imread(path_to_image)
-    rgb = cv2.pyrDown(large)
-    angle = get_rotation_angle(path_to_image, debug)
+    image = cv2.imread(path_to_image)
+    angle = get_rotation_angle(image)
+
+
+
+    rgb = cv2.pyrDown(image)
 
     # rotate the image to deskew it
     (height_bounding_rect, width_bounding_rect) = rgb.shape[:2]
