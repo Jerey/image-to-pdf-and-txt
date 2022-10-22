@@ -8,5 +8,5 @@ jobs:
   Build_and_Push_tag:
     uses: ./.github/workflows/docker_build_push.yml
     with:
-      docker_tag: ${{ steps.meta.outputs.tags }}
+      docker_tag: ${{github.ref_name}}
     secrets: inherit
