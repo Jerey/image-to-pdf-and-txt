@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Build and Push latest:
+  Build_and_Push_latest:
     uses: ./.github/workflows/docker_build_push.yml
     with:
       docker_tag: latest
