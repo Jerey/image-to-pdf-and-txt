@@ -11,3 +11,5 @@ how_to_execute
 test/
 !documentation/images
 !documentation/result
+bughunt/
+.DS_Store
