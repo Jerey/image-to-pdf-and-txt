@@ -1,18 +1,32 @@
 import argparse
-import os.path
+import os
 import warnings
-import imagetopdfandtxt.text_extractor as text_extractor
-import imagetopdfandtxt.picture_rotator as picture_rotator
-import imagetopdfandtxt.pdf_creator as pdf_creator
-import imagetopdfandtxt.helper_utils as helper_utils
 
-AP = argparse.ArgumentParser(description="""Takes one to many images, tries to extract text from the
-                            images and stores it in a folder including the input image.""")
+import imagetopdfandtxt.helper_utils as helper_utils
+import imagetopdfandtxt.pdf_creator as pdf_creator
+import imagetopdfandtxt.picture_rotator as picture_rotator
+import imagetopdfandtxt.text_extractor as text_extractor
+
+AP = argparse.ArgumentParser(
+    description="""Takes one to many images, tries to extract text from the
+                            images and stores it in a folder including the input image."""
+)
 GROUP = AP.add_mutually_exclusive_group(required=True)
-GROUP.add_argument("-i", "--image", action="append", dest="images", help="""Images, from
-                which text shall be extracted. Can be added multiple times.""")
-GROUP.add_argument("-f", "--folder", dest="folder", help="""Add a directory,
-                  where the pictures are stored to be parsed.""")
+GROUP.add_argument(
+    "-i",
+    "--image",
+    action="append",
+    dest="images",
+    help="""Images, from
+                which text shall be extracted. Can be added multiple times.""",
+)
+GROUP.add_argument(
+    "-f",
+    "--folder",
+    dest="folder",
+    help="""Add a directory,
+                  where the pictures are stored to be parsed.""",
+)
 ARGS = vars(AP.parse_args())
 
 
@@ -33,7 +47,7 @@ def main():
         print("---------------------------")
         filename = ""
         if ARGS["images"] != None:
-            pdf = pdf.split(',')
+            pdf = pdf.split(",")
             filename = pdf[0]
         else:
             filename = os.path.basename(os.path.dirname(pdf[0]))
@@ -48,11 +62,16 @@ def main():
         output_directory = "result/"
         if not os.path.exists(output_directory):
             os.makedirs(output_directory)
-        text_output = helper_utils.get_output_name_from_input(filename, output_directory, ".txt")
+        text_output = helper_utils.get_output_name_from_input(
+            filename, output_directory, ".txt"
+        )
         text_extractor.extract_text_from_file(pdf, text_output)
-        pdf_output = helper_utils.get_output_name_from_input(filename, output_directory, ".pdf")
+        pdf_output = helper_utils.get_output_name_from_input(
+            filename, output_directory, ".pdf"
+        )
         pdf_creator.create_pdf_from_images(pdf, pdf_output)
 
     print("---------------------------")
+
 
 main()
