@@ -1,5 +1,6 @@
 import os.path
 
+
 def get_output_name_from_input(input_file_name, output_dir, output_extension=None):
     input_file_name = os.path.basename(input_file_name)
     output = os.path.splitext(input_file_name)
