@@ -1,4 +1,4 @@
-name: CI to docker hub
+name: CI to docker hub template
 
 on:
   workflow_call:

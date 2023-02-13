@@ -1,4 +1,4 @@
-name: CI to docker hub
+name: PR merge checks
 
 on:
   pull_request:
